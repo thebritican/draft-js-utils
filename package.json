@@ -1,7 +1,7 @@
 {
-  "name": "draft-js-tools",
+  "name": "draft-js-utils",
   "version": "0.1.2",
-  "description": "Collection of tools for DraftJS",
+  "description": "Collection of utilities for DraftJS",
   "main": "lib/main.js",
   "scripts": {
     "build": "babel src --ignore '_*' --out-dir lib",
@@ -31,7 +31,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/sstur/draft-js-tools.git"
+    "url": "git+ssh://git@github.com/draft-js-utils/draft-js-utils.git"
   },
   "keywords": [
     "draft-js",
@@ -41,7 +41,7 @@
   "author": "sstur@me.com",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sstur/draft-js-tools/issues"
+    "url": "https://github.com/draft-js-utils/draft-js-utils/issues"
   },
-  "homepage": "https://github.com/sstur/draft-js-tools#readme"
+  "homepage": "https://github.com/draft-js-utils/draft-js-utils#readme"
 }
