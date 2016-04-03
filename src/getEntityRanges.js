@@ -16,13 +16,13 @@ export default function getEntityRanges(
   text: string,
   charMetaList: CharacterMetaList,
 ): Array<EntityRange> {
-  let charEntity = null;
-  let prevCharEntity = null;
-  let ranges = [];
+  let charEntity: ?string = null;
+  let prevCharEntity: ?string = null;
+  let ranges: Array<EntityRange> = [];
   let rangeStart = 0;
   for (let i = 0, len = text.length; i < len; i++) {
     prevCharEntity = charEntity;
-    let meta = charMetaList.get(i);
+    let meta: CharacterMetadata = charMetaList.get(i);
     charEntity = meta ? meta.getEntity() : null;
     if (i > 0 && charEntity !== prevCharEntity) {
       ranges.push([
