@@ -6,8 +6,8 @@ import type {List} from 'immutable';
 
 type EntityKey = ?string;
 type Style = OrderedSet<string>;
-type StylePiece = [string, Style];
-type EntityPiece = [EntityKey, Array<StylePiece>];
+type StyleRange = [string, Style];
+type EntityRange = [EntityKey, Array<StyleRange>];
 export type CharacterMetaList = List<CharacterMetadata>;
 
 export const EMPTY_SET = OrderedSet();
@@ -15,54 +15,53 @@ export const EMPTY_SET = OrderedSet();
 export default function getEntityRanges(
   text: string,
   charMetaList: CharacterMetaList,
-): Array<EntityPiece> {
-  // TODO: use EMPTY_SET here
+): Array<EntityRange> {
   let charEntity = null;
   let prevCharEntity = null;
-  let pieces = [];
-  let pieceStart = 0;
+  let ranges = [];
+  let rangeStart = 0;
   for (let i = 0, len = text.length; i < len; i++) {
     prevCharEntity = charEntity;
     let meta = charMetaList.get(i);
     charEntity = meta ? meta.getEntity() : null;
     if (i > 0 && charEntity !== prevCharEntity) {
-      pieces.push([
+      ranges.push([
         prevCharEntity,
-        getStylePieces(
-          text.slice(pieceStart, i),
-          charMetaList.slice(pieceStart, i)
+        getStyleRanges(
+          text.slice(rangeStart, i),
+          charMetaList.slice(rangeStart, i)
         ),
       ]);
-      pieceStart = i;
+      rangeStart = i;
     }
   }
-  pieces.push([
+  ranges.push([
     charEntity,
-    getStylePieces(
-      text.slice(pieceStart),
-      charMetaList.slice(pieceStart)
+    getStyleRanges(
+      text.slice(rangeStart),
+      charMetaList.slice(rangeStart)
     ),
   ]);
-  return pieces;
+  return ranges;
 }
 
-function getStylePieces(
+function getStyleRanges(
   text: string,
   charMetaList: CharacterMetaList,
-): Array<StylePiece> {
+): Array<StyleRange> {
   let charStyle = EMPTY_SET;
   let prevCharStyle = EMPTY_SET;
-  let pieces = [];
-  let pieceStart = 0;
+  let ranges = [];
+  let rangeStart = 0;
   for (let i = 0, len = text.length; i < len; i++) {
     prevCharStyle = charStyle;
     let meta = charMetaList.get(i);
     charStyle = meta ? meta.getStyle() : EMPTY_SET;
     if (i > 0 && !Immutable.is(charStyle, prevCharStyle)) {
-      pieces.push([text.slice(pieceStart, i), prevCharStyle]);
-      pieceStart = i;
+      ranges.push([text.slice(rangeStart, i), prevCharStyle]);
+      rangeStart = i;
     }
   }
-  pieces.push([text.slice(pieceStart), charStyle]);
-  return pieces;
+  ranges.push([text.slice(rangeStart), charStyle]);
+  return ranges;
 }
