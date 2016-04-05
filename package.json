@@ -12,6 +12,7 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "babel-cli": "^6.6.5",
     "babel-core": "^6.7.2",
     "babel-eslint": "^5.0.0",
     "babel-plugin-transform-class-properties": "^6.6.0",
