@@ -12,7 +12,7 @@ export const BLOCK_TYPE = {
   BLOCKQUOTE: 'blockquote',
   PULLQUOTE: 'pullquote',
   CODE: 'code-block',
-  MEDIA: 'media',
+  ATOMIC: 'atomic',
 };
 
 export const ENTITY_TYPE = {
