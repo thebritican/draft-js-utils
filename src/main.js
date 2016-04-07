@@ -5,4 +5,4 @@ export {default as getEntityRanges} from './getEntityRanges';
 
 export type {CharacterMetaList} from './getEntityRanges';
 
-export { default as getSelectedBlocks } from './getSelectedBlocks';
+export {default as getSelectedBlocks} from './getSelectedBlocks';
