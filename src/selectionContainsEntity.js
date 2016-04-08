@@ -1,6 +1,6 @@
 import getSelectedBlocks from './getSelectedBlocks';
 
-export default strategy => (editorState, selection) => {
+export default (strategy) => (editorState, selection) => {
   const contentState = editorState.getCurrentContent();
   const currentSelection = selection || editorState.getSelection();
   const startKey = currentSelection.getStartKey();
@@ -10,18 +10,18 @@ export default strategy => (editorState, selection) => {
 
   const isSameBlock = startKey === endKey;
   const selectedBlocks = getSelectedBlocks(contentState, startKey, endKey);
-  let entitiesFound = false;
+  let entityFound = false;
 
   // We have to shift the offset to not get false positives when selecting
   // a character just before or after an entity
   const finalStartOffset = startOffset + 1;
   const finalEndOffset = endOffset - 1;
 
-  selectedBlocks.forEach(block => {
+  selectedBlocks.forEach((block) => {
     strategy(
       block,
       (start, end) => {
-        if (entitiesFound) {
+        if (entityFound) {
           return;
         }
 
@@ -35,10 +35,10 @@ export default strategy => (editorState, selection) => {
           return;
         }
 
-        entitiesFound = true;
+        entityFound = true;
       }
     );
   });
 
-  return entitiesFound;
+  return entityFound;
 };
